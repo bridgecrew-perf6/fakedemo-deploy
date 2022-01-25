@@ -29,8 +29,8 @@ stage('commit container tag to yaml') {
 		sh "cat fake-ecr.yaml | sed -i \'s/${ecrRepo}:.*\$/${ecrRepo}:${env.BUILD_ID}/g\' fake-ecr.yaml"
 //	}
 
-withCredentials([usernamePassword(credentialsId: 'my-git-credential', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASSWORD')
-
+withCredentials([usernamePassword(credentialsId: 'my-git-credential', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASSWORD']) 
+{
 	sh "git config --global credential.username $GIT_USER"
 	sh "git config --global credential.helper '!f() { echo password=$GIT_PASSWORD; }; f'"
 	sh 'git config --global user.email "jenkins@example.com"'
