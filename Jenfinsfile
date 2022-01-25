@@ -1,13 +1,18 @@
 stage('git Progress') {
-    git branch: 'github_to_ecr', credentialsId: 'my-git-credential', url: 'https://github.com/ggue/fakejenkins.git'
+    git branch: 'master', credentialsId: 'my-git-credential', url: 'https://github.com/ggue/fakedemo-deploy.git'
 }
 
 stage('Build container image and Push') {
+	// 기존 docker config가 존재하면 삭제해 주는거다
+	// 가이드보고 진행함
+	// 혹시라도 남아있을 config.json 파일 같은거 사전 삭제
     sh 'rm -f ~/.dockercfg ~/.docker/config.json || true'
 
     // configure registry
     docker.withRegistry('https://179460961317.dkr.ecr.ap-northeast-2.amazonaws.com/fake-ecr', 'ecr:ap-northeast-2:my-aws-credential') {
     //build image
+	// env.BUILD_ID는 자동으로 생김
+	// default 변수
     def customImage = docker.build("179460961317.dkr.ecr.ap-northeast-2.amazonaws.com/fake-ecr:${env.BUILD_ID}")
     // push image
     customImage.push()
@@ -16,7 +21,7 @@ stage('Build container image and Push') {
 
 stage('commit container tag to yaml') {
     sh 'rm -f ./*'
-	git credentialsId: 'my-git-credential', url: 'https://github.com/ggue/fakeargocd.git'
+	git credentialsId: 'my-git-credential', url: 'https://github.com/ggue/kubernetes.git'
 	
 	dir('fake-ecr') {
 	    def ecrReop = "179460961317.dkr.ecr.ap-northeast-2.amazonaws.com\\fake-ecr"
@@ -32,5 +37,5 @@ withCredentials([usernamePassword(credentialsId: 'my-git-credential', usernameVa
 	
 	sh "git add fake-ecr/fake-ecr.yaml"
 	sh "git commit -m 'change container image tag ${env.BUILD_ID}'"
-	sh "git push 'https://github.com/ggue/fakeargocd'"
+	sh "git push 'https://github.com/ggue/kubernetes.git'"
 }
