@@ -42,7 +42,7 @@ node {
 		
 			sh "git add fake-ecr/fake-ecr.yaml"
 			sh "git commit -m 'change container image tag ${env.BUILD_ID}'"
-			sh "git push 'https://github.com/ggue/kubernetes.git'"
+			sh "git push 'https://github.com/ggue/kubernetes.git' -u origin main "
 		}
 	}
 }	
