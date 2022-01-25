@@ -26,7 +26,7 @@ stage('commit container tag to yaml') {
 	// 디렉토리가 존재할때
 //	dir('') {
 	    def ecrReop = "179460961317.dkr.ecr.ap-northeast-2.amazonaws.com\\/fake-ecr"
-		sh "cat fake-ecr.yaml | sed -i \'s/${ecrRepo}:.*\$/${ecrRepo}:${env.BUILD_ID}/g\' fake-ecr.yaml
+		sh "cat fake-ecr.yaml | sed -i \'s/${ecrRepo}:.*\$/${ecrRepo}:${env.BUILD_ID}/g\' fake-ecr.yaml"
 //	}
 
 withCredentials([usernamePassword(credentialsId: 'my-git-credential', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASSWORD')
