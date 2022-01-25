@@ -29,7 +29,7 @@ node {
 	
 		// 디렉토리가 존재할때
 	//	dir('') {
-			def ecrReop = "179460961317.dkr.ecr.ap-northeast-2.amazonaws.com\\/fake-ecr"
+			def ecrRepo = "179460961317.dkr.ecr.ap-northeast-2.amazonaws.com\\/fake-ecr"
 			sh "cat fake-ecr.yaml | sed -i \'s/${ecrRepo}:.*\$/${ecrRepo}:${env.BUILD_ID}/g\' fake-ecr.yaml"
 	//	}
 
