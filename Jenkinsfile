@@ -23,7 +23,8 @@ node {
 	}
 
 	stage('commit container tag to yaml') {
-		sh 'rm -f ./*'
+		// 이전에 있던것들이 좀꼬일수 있어서 문제가 될수있음
+		sh 'rm -rf ./*'
 		git credentialsId: 'my-git-credential', url: 'https://github.com/ggue/kubernetes.git'
 	
 		// 디렉토리가 존재할때
