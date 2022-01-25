@@ -1,5 +1,5 @@
 stage('git Progress') {
-    git branch: 'master', credentialsId: 'my-git-credential', url: 'https://github.com/ggue/fakedemo-deploy.git'
+    git branch: 'main', credentialsId: 'my-git-credential', url: 'https://github.com/ggue/fakedemo-deploy.git'
 }
 
 stage('Build container image and Push') {
