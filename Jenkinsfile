@@ -21,7 +21,7 @@ node {
 		customImage.push()
 	}
 	}
-  
+
 	stage('commit container tag to yaml') {
 		// 이전에 있던것들이 좀꼬일수 있어서 문제가 될수있음
 		sh 'rm -rf ./*'
